@@ -15,29 +15,22 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Plugins
-Plugin 'godlygeek/tabular'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
-Plugin 'edsono/vim-matchit'
-Plugin 'elzr/vim-json'
-Plugin 'majutsushi/tagbar'
-Plugin 'mhinz/vim-signify'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'tpope/vim-fugitive'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'rstacruz/sparkup'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'crusoexia/vim-javascript-lib'
 
 " Color schemes
 Plugin 'tomasr/molokai'
+Plugin 'crusoexia/vim-monokai'
 Plugin 'flazz/vim-colorschemes'
 
 " Required, plugins available after.
 call vundle#end()
 filetype plugin indent on
 
-colorscheme vibrantink
+colorscheme monokai
 set number
 set laststatus=2
+syntax on
+let g:monokai_italic = 1
