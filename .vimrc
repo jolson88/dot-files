@@ -1,16 +1,8 @@
 set nocompatible
 filetype off
 
-set noexpandtab
-set copyindent
-set preserveindent
-set softtabstop=0
-set shiftwidth=4
-set tabstop=4
-
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 " Let Vundle manage itself.
 Plugin 'gmarik/Vundle.vim'
 
@@ -24,13 +16,11 @@ Plugin 'crusoexia/vim-javascript-lib'
 Plugin 'tomasr/molokai'
 Plugin 'crusoexia/vim-monokai'
 Plugin 'flazz/vim-colorschemes'
-
 " Required, plugins available after.
 call vundle#end()
-filetype plugin indent on
 
-colorscheme monokai
+filetype plugin indent on
+colorscheme molokai
 set number
 set laststatus=2
 syntax on
-let g:monokai_italic = 1
