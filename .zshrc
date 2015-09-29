@@ -82,3 +82,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# PROMPT
+export PROMPT="%{$fg[cyan]%}%c \$(git-radar --zsh --fetch) %{$fg[cyan]%}$ %{$reset_color%}"
+
+# FUNCTIONS
+envup() { export $(cat .env); }
+envdebug() { export DEBUG_ENABLE=1; }
+envnodebug() { export DEBUG_ENABLE=0; }
+
