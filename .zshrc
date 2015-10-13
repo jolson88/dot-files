@@ -86,8 +86,11 @@ source $ZSH/oh-my-zsh.sh
 # PROMPT
 export PROMPT="%{$fg[cyan]%}%c \$(git-radar --zsh --fetch) %{$fg[cyan]%}$ %{$reset_color%}"
 
+# ALIASES
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+
 # FUNCTIONS
 envup() { export $(cat .env); }
 envdebug() { export DEBUG_ENABLE=1; }
 envnodebug() { export DEBUG_ENABLE=0; }
-
+vagup() { vagrant up --provider vmware_fusion; }
