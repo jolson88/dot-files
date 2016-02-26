@@ -1,0 +1,28 @@
+##################################################
+# General
+##################################################
+[general]
+accounts = Concur
+pythonfile = ~/.offlineimap.py
+
+##################################################
+# Concur Account
+##################################################
+[Account Concur]
+localrepository = LocalConcur
+remoterepository = RemoteConcur
+status_backend = sqlite
+
+[Repository LocalConcur]
+type = Maildir
+localfolders = ~/.mail/concur
+
+[Repository RemoteConcur]
+type = IMAP
+maxconnections = 1
+remotehost = localhost
+remoteport = 1143
+remoteuser = CONCUR\jolson
+remotepasseval = get_keychain_pass(account="jolson@webmail.concur.com", server="Exchange")
+ssl = no
+folderfilter = lambda foldername: foldername not in ['Trash', 'Drafts', 'Junk', 'Junk E-Mail', 'Unsent Messages', 'Unsent Messages/VoiceOutbox']
