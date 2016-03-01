@@ -1,6 +1,3 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/jolson/.oh-my-zsh
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -51,12 +48,8 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git brew docker node npm systemd tmux vagrant vi-mode web-search)
 
-# User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
-
 source $ZSH/oh-my-zsh.sh
+eval "$(rbenv init -)"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -82,15 +75,29 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# PROMPT
-export PROMPT="%{$fg[cyan]%}%c \$(git-radar --zsh --fetch) %{$fg[cyan]%}$ %{$reset_color%}"
-
+#
 # ALIASES
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias kdiff3="open -a kdiff3"
 
 # FUNCTIONS
 envup() { export $(cat .env); }
 envdebug() { export DEBUG_ENABLE=1; }
 envnodebug() { export DEBUG_ENABLE=0; }
 vagup() { vagrant up --provider vmware_fusion; }
+
+# Path to your oh-my-zsh installation.
+#export ZSH=/Users/jolson/.oh-my-zsh
+
+# User configuration
+#export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+#export HOMEBREW_GITHUB_API_TOKEN="64c1900190a85675a99b369cce89d6e996e05502"
+#export KUBECONFIG="/Users/jolson/.kube/concur-config:/Users/jolson/.kube/config"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# PROMPT
+#export PROMPT="%{$fg[cyan]%}%c \$(git-radar --zsh --fetch) %{$fg[cyan]%}$ %{$reset_color%}"
+
+# PATH
+#export PATH="$HOME/.bin:$PATH"
+#export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"

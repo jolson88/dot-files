@@ -29,13 +29,17 @@ values."
      git
      markdown
      org
+     mu4e
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
+     spell-checking
+     syntax-checking
      ;; version-control
      osx
+     javascript
+     yaml
+     eyebrowse
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -79,19 +83,21 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light
-                         solarized-light
+   dotspacemacs-themes '(solarized-light
                          solarized-dark
-                         leuven
-                         monokai
-                         zenburn)
+                         spacemacs-light
+                         spacemacs-dark
+   ;;                      monokai
+   ;;                      alect-light
+                         birds-of-paradise-plus
+   ;;                      occidental
+                         )
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Monaco"
-                               :size 18
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -193,16 +199,91 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
+  (add-to-list 'load-path "/usr/local/Cellar/mu/HEAD/share/emacs/site-lisp/mu/mu4e")
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (require 'epa-file)
+  (require 'org)
+  (require 'magit)
+  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
   (global-linum-mode)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
+  (global-set-key [f8] 'neotree-toggle)
+
+  (eval-after-load 'mu4e
+    '(define-key mu4e-view-mode-map (kbd "C-p") 'mu4e-view-headers-prev))
+
+  ;; mu4e folders
+  (setq mu4e-maildir "~/.mail"
+        mu4e-sent-folder "/concur/Sent"
+        mu4e-drafts-folder "/concur/Drafts"
+        mu4e-trash-folder "/concur/Trash"
+        mu4e-refile-folder "/concur/INBOX.Archive")
+
+  ;; mu4e retrieval commands
+  (setq mu4e-get-mail-command "offlineimap"
+        mu4e-update-interval 300
+        mu4e-sent-messages-behavior 'delete)
+
+  ;; shortcuts
+  (setq mu4e-maildir-shortcuts
+        '( ("/concur/INBOX" . ?i)
+           ("/concur/Sent" . ?s)))
+
+  ;; show images (and use imagemagick if available)
+  (setq mu4e-show-images t)
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+
+  ;; html email conversion
+  (setq mu4e-html2text-command "textutil -stdin -format html -convert txt -stdout")
+
+  ;; something about ourselves
+  (setq
+   user-mail-address "jason.olson@concur.com"
+   user-full-name "Jason Olson"
+   mu4e-compose-signature
+   (concat
+    "Thanks,\n"
+    "Jason Olson\n"))
+
+  ;; spell check
+  (add-hook 'mu4e-compose-mode-hook
+            (defun my-do-compose-stuff ()
+              "My settings for message composition."
+              (set-fill-column 72)
+              (flyspell-mode)))
+
+  ;; configuration for sending mail
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type nil
+        smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
+        smtpmail-default-smtp-server "localhost"
+        smtpmail-smtp-server "localhost"
+        smtpmail-smtp-service 1025)
+
+  ;; calendar setup
+  (setq org-icalendar-timezone "America/Los_Angeles")
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("~/Source/personal/notes/personal.org" "~/Source/personal/notes/work.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
