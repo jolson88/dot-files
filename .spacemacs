@@ -40,6 +40,7 @@ values."
      javascript
      yaml
      eyebrowse
+     shell
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -211,12 +212,24 @@ layers configuration. You are free to put any user code."
   (require 'magit)
   (setq epa-file-cache-passphrase-for-symmetric-encryption t)
   (global-linum-mode)
+
+  ;; key bindings
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (global-set-key [f8] 'neotree-toggle)
+  (eval-after-load 'eyebrowse
+    '(progn
+       (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
+       (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
+       (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
+       (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)))
 
   (eval-after-load 'mu4e
     '(define-key mu4e-view-mode-map (kbd "C-p") 'mu4e-view-headers-prev))
+
+  ;; show images (and use imagemagick if available)
+  (setq mu4e-view-show-images t)
+  (setq mu4e-view-prefer-html t)
 
   ;; mu4e folders
   (setq mu4e-maildir "~/.mail"
@@ -235,13 +248,8 @@ layers configuration. You are free to put any user code."
         '( ("/concur/INBOX" . ?i)
            ("/concur/Sent" . ?s)))
 
-  ;; show images (and use imagemagick if available)
-  (setq mu4e-show-images t)
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
-
   ;; html email conversion
-  (setq mu4e-html2text-command "textutil -stdin -format html -convert txt -stdout")
+  ;;(setq mu4e-html2text-command "textutil -stdin -format html -convert txt -stdout")
 
   ;; something about ourselves
   (setq
@@ -280,7 +288,10 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Source/personal/notes/personal.org" "~/Source/personal/notes/work.org"))))
+    ("~/Source/personal/notes/personal.org" "~/Source/personal/notes/work.org")))
+ '(package-selected-packages
+   (quote
+    (xterm-color shell-pop multi-term eshell-prompt-extras esh-help yaml-mode ws-butler window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tern spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el pbcopy paradox page-break-lines osx-trash orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme launchctl json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word coffee-mode clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
