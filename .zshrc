@@ -12,6 +12,9 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 ## Antigen Theme
 antigen theme bira
 
+## Keys
+eval $(keychain --eval --quiet id_rsa)
+
 ## Aliases
 alias ls='ls --color=auto'
 alias pst='xsel --clipboard --output'

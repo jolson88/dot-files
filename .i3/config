@@ -177,6 +177,6 @@ bar {
 new_window pixel 1
 
 # AUTOSTART
-exec --no-startup-id compton --active-opacity 0.92 --inactive-opacity 0.65 -b
+exec --no-startup-id compton --active-opacity 0.92 --inactive-opacity 0.5 -b
 exec --no-startup-id nitrogen --restore &
 # exec --no-startup-id feh --bg-scale ~/pictures/wallpaper/light-abstract-wallpaper.jpg
