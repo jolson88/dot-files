@@ -1,3 +1,17 @@
+! Xft settings -------------------------
+Xft.dpi:	160
+Xft.antialias:	true
+Xft.rgba:	rgb
+
+! Urxvt settings ----------------------
+urxvt*font: xft:Meslo LG S:size=10:antialias=true
+urxvt*boldFont: xft:Meslo LG S:size=10:style=bold:antialias=true
+urxvt*lineSpace: 0
+urxvt*scrollBar: false
+urxvt*secondaryScroll: true
+urxvt*saveLines: 65535
+
+!! SOLARIZED
 #define S_base03        #002b36
 #define S_base02        #073642
 #define S_base01        #586e75
@@ -6,14 +20,6 @@
 #define S_base1         #93a1a1
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
-
-*background:            S_base3
-*foreground:            S_base00
-*fadeColor:             S_base3
-*cursorColor:           S_base01
-*pointerColorBackground:S_base1
-*pointerColorForeground:S_base01
-
 #define S_yellow        #b58900
 #define S_orange        #cb4b16
 #define S_red           #dc322f
@@ -23,34 +29,41 @@
 #define S_cyan          #2aa198
 #define S_green         #859900
 
-!! black dark/light
+!! Light Theme -----------------------
+!! *background:            S_base3
+!! *foreground:            S_base00
+!! *cursorColor:           S_base01
+!! *pointerColorBackground:S_base1
+!! *pointerColorForeground:S_base01
+
+!! Dark Theme ------------------------
+*background:            S_base03
+*foreground:            S_base0
+*cursorColor:           S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
+
+!! Black
 *color0:                S_base02
 *color8:                S_base03
-
-!! red dark/light
+!! Red
 *color1:                S_red
 *color9:                S_orange
-
-!! green dark/light
+!! Green
 *color2:                S_green
 *color10:               S_base01
-
-!! yellow dark/light
+!! Yellow
 *color3:                S_yellow
 *color11:               S_base00
-
-!! blue dark/light
+!! Blue
 *color4:                S_blue
 *color12:               S_base0
-
-!! magenta dark/light
+!! Magenta
 *color5:                S_magenta
 *color13:               S_violet
-
-!! cyan dark/light
+!! Cyan
 *color6:                S_cyan
 *color14:               S_base1
-
-!! white dark/light
+!! White
 *color7:                S_base2
 *color15:               S_base3
