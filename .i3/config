@@ -181,7 +181,7 @@ bindsym Mod4+F1 exec /usr/bin/google-chrome-stable
 bindsym Mod4+F2 exec /usr/bin/emacsclient -c
 
 # AUTOSTART
-exec --no-startup-id compton --active-opacity 0.92 --inactive-opacity 0.68 -b
+exec --no-startup-id compton --active-opacity 0.92 --inactive-opacity 0.75 -b
 exec --no-startup-id nitrogen --restore &
 exec --no-startup-id emacs --daemon
 exec --no-startup-id davmail &
