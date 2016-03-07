@@ -49,9 +49,6 @@ bindsym Mod4+d exec dmenu_run -fn "pango:Meslo LG S 8"
 # installed.
 # bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
 
-# Application quick launching
-bindsym Mod4+F1 exec /usr/bin/google-chrome-stable
-
 # change focus
 bindsym Mod4+$left focus left
 bindsym Mod4+$down focus down
@@ -179,7 +176,12 @@ bar {
 # Window styles
 new_window pixel 1
 
+# Application quick launching
+bindsym Mod4+F1 exec /usr/bin/google-chrome-stable
+bindsym Mod4+F2 exec /usr/bin/emacsclient -c
+
 # AUTOSTART
 exec --no-startup-id compton --active-opacity 0.92 --inactive-opacity 0.68 -b
 exec --no-startup-id nitrogen --restore &
-# exec --no-startup-id feh --bg-scale ~/pictures/wallpaper/light-abstract-wallpaper.jpg
+exec --no-startup-id emacs --daemon
+exec --no-startup-id davmail &
