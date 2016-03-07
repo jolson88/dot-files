@@ -19,6 +19,7 @@ eval $(keychain --eval --quiet id_rsa)
 alias ls='ls --color=auto'
 alias pst='xsel --clipboard --output'
 alias cpy='xsel --clipboard --input'
+alias plan='vdirsyncer sync && khal'
 
 ## We're done!
 antigen apply
