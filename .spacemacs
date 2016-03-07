@@ -198,7 +198,8 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
-  (add-to-list 'load-path "/usr/local/Cellar/mu/HEAD/share/emacs/site-lisp/mu/mu4e")
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp")
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
   )
 
 (defun dotspacemacs/user-config ()
