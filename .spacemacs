@@ -211,6 +211,12 @@ layers configuration. You are free to put any user code."
   (setq epa-file-cache-passphrase-for-symmetric-encryption t)
   (global-linum-mode)
 
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "/usr/bin/google-chrome-stable")
+
+  (add-to-list 'default-frame-alist '(font . "Meslo LG S-10"))
+  (set-face-attribute 'default t :font "Meslo LG S-10")
+
   ;; key bindings
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -263,8 +269,7 @@ layers configuration. You are free to put any user code."
         smtpmail-smtp-server "localhost"
         smtpmail-smtp-service 1025)
 
-  ;; calendar setup
-  (setq org-icalendar-timezone "America/Los_Angeles")
+  (server-start)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
