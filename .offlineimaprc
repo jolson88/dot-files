@@ -23,6 +23,6 @@ maxconnections = 1
 remotehost = localhost
 remoteport = 1143
 remoteuser = CONCUR\jolson
-remotepasseval = get_password_emacs("localhost")
+remotepasseval = get_password_pass("concur.com/exchange")
 ssl = no
 folderfilter = lambda foldername: foldername not in ['Junk', 'Junk E-Mail', 'Unsent Messages', 'Unsent Messages/VoiceOutbox']
