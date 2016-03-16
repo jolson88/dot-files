@@ -25,6 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      ;; auto-completion
      ;; better-defaults
+     clojure
      emacs-lisp
      git
      markdown
@@ -36,15 +37,18 @@ values."
      spell-checking
      syntax-checking
      ;; version-control
-     osx
      javascript
      yaml
+     osx
+     eyebrowse
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(cider-eval-sexp-fu
+                                      org-pomodoro
+                                      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -82,10 +86,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-dark
-                         solarized-light
-                         spacemacs-dark
+   dotspacemacs-themes '(solarized-light
+                         solarized-dark
                          spacemacs-light
+                         spacemacs-dark
    ;;                      monokai
    ;;                      alect-light
                          birds-of-paradise-plus
@@ -95,7 +99,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Meslo LG S"
+   dotspacemacs-default-font '("Monaco"
                                :size 14
                                :weight normal
                                :width normal
@@ -198,8 +202,12 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
-  (add-to-list 'load-path "/usr/share/emacs/site-lisp")
-  (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(cljr-helm . "melpa-stable") t)
+  (add-to-list 'package-pinned-packages '(ac-cider . "melpa-stable") t)
+  (package-initialize)
   )
 
 (defun dotspacemacs/user-config ()
@@ -212,65 +220,30 @@ layers configuration. You are free to put any user code."
   (setq epa-file-cache-passphrase-for-symmetric-encryption t)
   (global-linum-mode)
 
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "/usr/bin/google-chrome-stable")
+  ;; pomodoro
+  (define-key global-map "\C-cP" 'org-pomodoro)
 
-  (add-to-list 'default-frame-alist '(font . "Meslo LG S-10"))
-  (set-face-attribute 'default t :font "Meslo LG S-10")
+  ;; org-mode capture and refiling
+  (define-key global-map "\C-cc" 'org-capture)
+  (define-key global-map "\C-cg" 'org-capture-goto-last-stored)
+  (define-key global-map "\C-cr" 'org-refile)
+  (setq org-capture-templates
+        '(("w" "Work Todo" entry (file+headline "~/Source/personal/notes/work.org" "Tasks")
+           "*** TODO %?\n    %i\n    %a")
+          ("p" "Personal Todo" entry (file+headline "~/Source/personal/notes/personal.org" "Tasks")
+           "** TODO %?\n    %i\n    %a")))
+  (setq org-refile-targets '((nil :maxlevel . 2)))
 
   ;; key bindings
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (global-set-key [f8] 'neotree-toggle)
-  (eval-after-load 'mu4e
-    '(define-key mu4e-view-mode-map (kbd "C-p") 'mu4e-view-headers-prev))
-
-  ;; show images (and use imagemagick if available)
-  (setq mu4e-view-show-images t)
-  (setq mu4e-view-prefer-html t)
-
-  ;; mu4e folders
-  (setq mu4e-maildir "~/.mail"
-        mu4e-sent-folder "/concur/Sent"
-        mu4e-drafts-folder "/concur/Drafts"
-        mu4e-trash-folder "/concur/Trash"
-        mu4e-refile-folder "/concur/INBOX.Archive")
-
-  ;; mu4e retrieval commands
-  (setq mu4e-get-mail-command "offlineimap"
-        mu4e-update-interval 300
-        mu4e-sent-messages-behavior 'delete)
-
-  ;; shortcuts
-  (setq mu4e-maildir-shortcuts
-        '( ("/concur/INBOX" . ?i)
-           ("/concur/Sent" . ?s)))
-
-  ;; something about ourselves
-  (setq
-   user-mail-address "jason.olson@concur.com"
-   user-full-name "Jason Olson"
-   mu4e-compose-signature
-   (concat
-    "Thanks,\n"
-    "Jason Olson\n"))
-
-  ;; spell check
-  (add-hook 'mu4e-compose-mode-hook
-            (defun my-do-compose-stuff ()
-              "My settings for message composition."
-              (set-fill-column 72)
-              (flyspell-mode)))
-
-  ;; configuration for sending mail
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type nil
-        smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-        smtpmail-default-smtp-server "localhost"
-        smtpmail-smtp-server "localhost"
-        smtpmail-smtp-service 1025)
-
-  (server-start)
+  (eval-after-load 'eyebrowse
+    '(progn
+       (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
+       (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
+       (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
+       (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -282,10 +255,10 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/source/personal/notes/personal.org" "~/source/personal/notes/work.org")))
+    ("~/Source/personal/notes/work.org_archive" "~/Source/personal/notes/personal.org" "~/Source/personal/notes/work.org")))
  '(package-selected-packages
    (quote
-    (xterm-color shell-pop multi-term eshell-prompt-extras esh-help yaml-mode ws-butler window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tern spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el pbcopy paradox page-break-lines osx-trash orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme launchctl json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word coffee-mode clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (clojure-mode paredit peg helm-company helm-c-yasnippet company-tern company-statistics company-quickhelp company clj-refactor cider-eval-sexp-fu cider auto-yasnippet auto-complete ac-ispell xterm-color shell-pop multi-term eshell-prompt-extras esh-help yaml-mode ws-butler window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tern spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el pbcopy paradox page-break-lines osx-trash orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme launchctl json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word coffee-mode clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
