@@ -30,7 +30,6 @@ values."
      git
      markdown
      org
-     mu4e
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -39,8 +38,6 @@ values."
      ;; version-control
      javascript
      yaml
-     osx
-     eyebrowse
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -86,8 +83,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light
-                         solarized-dark
+   dotspacemacs-themes '(solarized-dark
+                         solarized-light
                          spacemacs-light
                          spacemacs-dark
    ;;                      monokai
@@ -99,11 +96,11 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Monaco"
-                               :size 14
+   dotspacemacs-default-font '("Meslo LG S"
+                               :size 22
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -206,7 +203,6 @@ user code."
   (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
   (add-to-list 'package-pinned-packages '(clj-refactor . "melpa-stable") t)
   (add-to-list 'package-pinned-packages '(cljr-helm . "melpa-stable") t)
-  (add-to-list 'package-pinned-packages '(ac-cider . "melpa-stable") t)
   (package-initialize)
   )
 
@@ -238,12 +234,6 @@ layers configuration. You are free to put any user code."
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (global-set-key [f8] 'neotree-toggle)
-  (eval-after-load 'eyebrowse
-    '(progn
-       (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
-       (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
-       (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
-       (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -255,7 +245,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Source/personal/notes/work.org_archive" "~/Source/personal/notes/personal.org" "~/Source/personal/notes/work.org")))
+    ("~/source/personal/notes/work.org_archive" "~/source/personal/notes/personal.org" "~/source/personal/notes/work.org")))
  '(package-selected-packages
    (quote
     (clojure-mode paredit peg helm-company helm-c-yasnippet company-tern company-statistics company-quickhelp company clj-refactor cider-eval-sexp-fu cider auto-yasnippet auto-complete ac-ispell xterm-color shell-pop multi-term eshell-prompt-extras esh-help yaml-mode ws-butler window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tern spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el pbcopy paradox page-break-lines osx-trash orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme launchctl json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word coffee-mode clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
