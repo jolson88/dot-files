@@ -23,20 +23,16 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
-     ;; better-defaults
+     auto-completion
      clojure
      emacs-lisp
      git
-     markdown
      org
-     mu4e
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      spell-checking
      syntax-checking
-     ;; version-control
      javascript
      yaml
      osx
@@ -46,9 +42,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(cider-eval-sexp-fu
-                                      org-pomodoro
-                                      )
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -214,36 +208,35 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (require 'epa-file)
-  (require 'org)
-  (require 'magit)
-  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
   (global-linum-mode)
 
-  ;; pomodoro
-  (define-key global-map "\C-cP" 'org-pomodoro)
-
-  ;; org-mode capture and refiling
-  (define-key global-map "\C-cc" 'org-capture)
-  (define-key global-map "\C-cg" 'org-capture-goto-last-stored)
-  (define-key global-map "\C-cr" 'org-refile)
-  (setq org-capture-templates
+  (eval-after-load 'org
+    '(progn
+       (setq org-agenda-clockreport-parameter-plist 
+             '(:fileskip0 t :link t :maxlevel 2 :formula "$5=($3+$4)*(60/25);t"))
+       (spacemacs/set-leader-keys
+         "aog" 'org-capture-goto-last-stored
+         "aor" 'org-refile
+         "aop" 'org-pomodoro)
+       (setq org-capture-templates
         '(("w" "Work Todo" entry (file+headline "~/Source/personal/notes/work.org" "Tasks")
            "*** TODO %?\n    %i\n    %a")
           ("p" "Personal Todo" entry (file+headline "~/Source/personal/notes/personal.org" "Tasks")
            "** TODO %?\n    %i\n    %a")))
-  (setq org-refile-targets '((nil :maxlevel . 2)))
+       (setq org-refile-targets '((nil :maxlevel . 2)))))
 
-  ;; key bindings
-  (define-key global-map (kbd "C-+") 'text-scale-increase)
-  (define-key global-map (kbd "C--") 'text-scale-decrease)
-  (global-set-key [f8] 'neotree-toggle)
   (eval-after-load 'eyebrowse
     '(progn
        (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
        (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
        (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
        (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)))
+
+  ;; key bindings
+  (define-key global-map (kbd "C-+") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+  (define-key global-map (kbd "C-SPC") 'helm-multi-files)
+  (global-set-key [f8] 'neotree-toggle)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
