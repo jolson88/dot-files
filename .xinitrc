@@ -7,16 +7,14 @@ fi
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 # Setup graphics
-xrandr --output Virtual1 --primary
+xrandr --output eDP1 --primary
 xrandr --dpi 160
 
 # Turn off the horid PC speaker bell
 xset -b
 
-# Extra VMware setup (as we are in multi-user.target 
-# instead of graphical.target
-systemctl start vmware-vmblock-fuse.service &
-vmware-user-suid-wrapper &
+# Enable keybinds
+xbindkeys -p
 
-#exec i3 -V >> ~/.i3/log 2>&1
+exec i3 -V >> ~/.i3/log 2>&1
 exec i3

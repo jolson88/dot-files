@@ -1,4 +1,4 @@
-source ~/source/antigen/antigen.zsh
+source /usr/share/zsh/scripts/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 ## Antigen Bundles
@@ -13,7 +13,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme bira
 
 ## Keys
-eval $(keychain --eval --quiet id_rsa)
+eval $(keychain --eval --quiet --noask id_rsa)
 
 ## Aliases
 alias ls='ls --color=auto'

@@ -222,11 +222,23 @@ layers configuration. You are free to put any user code."
            "** TODO %?\n    %i\n    %a")))
        (setq org-refile-targets '((nil :maxlevel . 2)))))
 
+<<<<<<< HEAD
+  (eval-after-load 'eyebrowse
+    '(progn
+       (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
+       (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
+       (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
+       (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)))
 
   ;; key bindings
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (define-key global-map (kbd "C-SPC") 'helm-multi-files)
+=======
+  ;; key bindings
+  (define-key global-map (kbd "C-+") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+>>>>>>> bb374f5c8c88cfae270e2757f8f872b335bdda83
   (global-set-key [f8] 'neotree-toggle)
 )
 
