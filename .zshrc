@@ -19,7 +19,15 @@ eval $(keychain --eval --quiet --noask id_rsa)
 alias ls='ls --color=auto'
 alias pst='xsel --clipboard --output'
 alias cpy='xsel --clipboard --input'
-alias plan='vdirsyncer sync && khal'
+alias luxoff='luxafor.py -c 79'
 
 ## We're done!
 antigen apply
+
+export NVM_DIR="/home/jolson/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_rsa
+
+export PATH=$PATH:$HOME/.bin
