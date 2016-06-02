@@ -255,6 +255,7 @@ you should place your code here."
       "aog" 'org-capture-goto-last-stored
       "aor" 'org-refile
       "aop" 'org-pomodoro)
+    (setq org-clock-idle-time 10)
     (setq org-capture-templates
           '(("w" "Work Todo" entry (file+headline "~/source/personal/notes/work.org" "Tasks")
              "*** TODO %?\n    %i\n    %a")
@@ -299,4 +300,8 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#cb4b16" :height 1.15))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#859900" :height 1.0))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.0))))
+ '(org-level-4 ((t (:inherit variable-pitch :foreground "#b58900" :height 1.0)))))
