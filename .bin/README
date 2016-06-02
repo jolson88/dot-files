@@ -1,0 +1,4 @@
+****** luxafor.py *******
+For the Luxafor.py script to work, ownership needs to be setup properly for the Luxafor
+USB device. For information on how to do this on Ubuntu, look at the following
+forum thread: http://ubuntuforums.org/showthread.php?t=1342955&p=8432338#post8432338
