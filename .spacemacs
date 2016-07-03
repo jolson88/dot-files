@@ -28,7 +28,6 @@ values."
      emacs-lisp
      git
      org
-     spell-checking
      syntax-checking
      javascript
      yaml
@@ -37,7 +36,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(editorconfig)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -104,7 +103,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.2)
@@ -237,6 +236,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq js2-include-node-externs t)
   )
 
 (defun dotspacemacs/user-config ()
@@ -254,14 +254,28 @@ you should place your code here."
     (spacemacs/set-leader-keys
       "aog" 'org-capture-goto-last-stored
       "aor" 'org-refile
-      "aop" 'org-pomodoro)
+      "aop" 'org-pomodoro
+      "aoM" 'org-agenda-month-view)
     (setq org-clock-idle-time 10)
     (setq org-capture-templates
           '(("w" "Work Todo" entry (file+headline "~/source/personal/notes/work.org" "Tasks")
-             "*** TODO %?\n    %i\n    %a")
+             "** TODO %?\n    %i\n    %a")
             ("p" "Personal Todo" entry (file+headline "~/source/personal/notes/personal.org" "Tasks")
              "** TODO %?\n    %i\n    %a")))
-    (setq org-refile-targets '((nil :maxlevel . 2))))
+    (setq org-refile-targets
+          '((org-agenda-files :maxlevel . 2)))
+    (add-hook 'org-clock-in-hook
+              (lambda ()
+                (interactive)
+                (start-process-shell-command "Make Luxafor red" nil "luxafor.py -c 82")))
+    (add-hook 'org-clock-out-hook
+              (lambda ()
+                (interactive)
+                (start-process-shell-command "Make Luxafor green" nil "luxafor.py -c 71")))
+    (add-hook 'org-clock-cancel-hook
+              (lambda ()
+                (interactive)
+                (start-process-shell-command "Make Luxafor green" nil "luxafor.py -c 71"))))
 
   (with-eval-after-load 'org-pomodoro
     (add-hook 'org-pomodoro-started-hook
@@ -293,7 +307,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/source/personal/notes/work.org" "~/source/personal/notes/personal.org" "~/source/personal/notes/personal.org_archive" "~/source/personal/notes/work.org_archive"))))
+    ("~/source/personal/notes/work.org" "~/source/personal/notes/work.org_archive"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
