@@ -1,13 +1,24 @@
 set nocompatible
 filetype off
 
+" Vundle/Plugins
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'pangloss/vim-javascript'
+Plugin 'moll/vim-node'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdtree'
 call vundle#end()
 filetype plugin indent on
 
+" Initial config
 syntax on
 set autoindent                         " Copy indent from current line
 set autoread                           " Read open files again when changed outside Vim
@@ -34,7 +45,6 @@ set hidden                             " Don't unload the buffer when we switch 
 set visualbell                         " Visual bell instead of beeping
 set wildignore=*.swp,*.bak,*.tmp,tmp/**,node_modules/**  " wildmenu: ignore these extensions
 set wildmenu                           " Command-line completion in an enhanced mode
-set shell=bash                         " Required to let zsh know how to run things on command line
 set ttimeoutlen=50                     " Fix delay when escaping from insert with Esc
 set noshowmode                         " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set showbreak=↪\
@@ -47,15 +57,46 @@ set nofoldenable
 set number
 set rnu
 
-nnoremap <Esc><Esc> :nohlsearch<CR>     " Remove last search highlight
-inoremap <C-c><C-c> <C-o>:wq<CR>        " Primarily used with git commit to quickly exit
+" Color scheme config
+syntax enable
+colorscheme solarized
+let g:solarized_termtrans = 1
+let g:solarized_termcolors=256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+set background=dark
 
+" Tool config
+set laststatus=2                                    " Make the second to last line of vim our status line
+let g:airline_theme="solarized"
+let g:airline_powerline_fonts = 1
+let g:javscript_plugin_jsdoc = 1
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" Keymaps
+nnoremap <Esc><Esc> :nohlsearch<CR>
+tnoremap <Esc> <C-\><C-n>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+" Leader configuration
 let mapleader=" "
-map <Leader>rs :so $MYVIMRC<CR>         " Re-source the .nvimrc file being worked on
-map <Leader>s :w<CR>                    
+map <Leader>rs :so $MYVIMRC<CR>
+map <Leader>s :w<CR>
 map <Leader>x :q<CR>
-map <Leader>o :CtrlP<CR>                " Open file menu
-map <Leader>b :CtrlPBuffer<CR>          " Open buffer menu
-map <Leader>f :CtrlPMRUFiles<CR>        " Open most-recently used files
+map <Leader>o :CtrlP<CR>
+map <Leader>b :CtrlPBuffer<CR>
+map <Leader>f :CtrlPMRUFiles<CR>
 map <Leader>gs :Gstatus<CR>
 map <Leader>gc :Gcommit<CR>
+map <Leader>gp :Git push<CR>
+map <Leader>grm :Git rebase master<CR>
+map <Leader>d :NERDTreeToggle<CR>
+map <Leader>t :terminal<CR>

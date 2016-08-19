@@ -23,6 +23,7 @@ brew tap neovim/neovim
 brew install --HEAD neovim
 ln -s /Users/jolson/source/personal/dev-tools/.nvimrc /Users/jolson/.nvimrc
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+pip install --user neovim
 
 # DOCKER
 echo ""
