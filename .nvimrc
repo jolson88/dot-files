@@ -73,8 +73,10 @@ let g:airline_powerline_fonts = 1
 let g:javscript_plugin_jsdoc = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-" Keymaps
+" Key mappings
 nnoremap <Esc><Esc> :nohlsearch<CR>
 tnoremap <Esc> <C-\><C-n>
 tnoremap <A-h> <C-\><C-n><C-w>h

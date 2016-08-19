@@ -18,8 +18,29 @@ eval `ssh-agent -s`
 ssh-add ~/.ssh/id_rsa
 
 ## Helper Aliases
-alias gtp="cd ~/source/personal"
-alias gtrs="cd ~/source/concur/receipt-service"
+alias src="source ~/.zshrc"
+alias erc="nvim ~/.zshrc"
+alias ntp="cd ~/source/personal"
+alias ntrs="cd ~/source/concur/receipt-service"
+alias gs="git status"
+alias gaa="git add . && git status"
+alias gc="git commit"
+alias gp="git push"
+alias gpf="git push --force"
+alias gu="git fetch --prune && git pull"
+alias grm="git rebase master"
+function gm() {
+    git merge "$1"
+}
+function gco() {
+    git checkout "$1"
+}
+function gcob() {
+    git checkout master && git pull && git checkout -b "$1"
+}
+function gri() {
+    git rebase -i "$1"
+}
 
 ## Alias
 REQUEST=$HOME/source/concur/receipt-service/src/tools/request.sh
@@ -41,7 +62,8 @@ alias pqp="$REQUEST post qa_prod"
 alias p3_2c="$REQUEST post rqa3_2c"
 alias p3_2c_real="$HOME/Drive/Notes/Concur/technical/curl_commands/receipts/archive/rqa3_real.sh"
 
-# Receipts resets
+# Receipts helpers
+alias rst="npm run dev:run-test"
 alias rrhard='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db && npm run dev:start'
 alias rdestroy='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db'
 alias dclear='docker rm $(docker ps -a -q) || docker rmi $(docker images | grep "MB" | awk "{print $3}")'
