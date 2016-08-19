@@ -21,12 +21,17 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 # NEOVIM
 brew tap neovim/neovim
 brew install --HEAD neovim
-ln -s /Users/jolson/source/personal/dev-tools/.nvimrc /Users/jolson/.nvimrc
+ln -s /Users/jolson/source/personal/dev-tools/.nvimrc /Users/jolson/.config/nvim/init.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 pip install --user neovim
 git clone https://github.com/powerline/fonts
 cd fonts
 ./install.sh
+
+# TMUX
+brew install tmux
+git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
+ln -s /Users/jolson/source/personal/dev-tools/.tmux.conf /Users/jolson/.tmux.conf
 
 # DOCKER
 echo ""
