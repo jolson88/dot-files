@@ -18,6 +18,7 @@ eval `ssh-agent -s`
 ssh-add ~/.ssh/id_rsa
 
 ## Helper Aliases
+alias tmux="tmux -2"
 alias src="source ~/.zshrc"
 alias erc="nvim ~/.zshrc"
 alias ntp="cd ~/source/personal"
@@ -63,6 +64,8 @@ alias p3_2c="$REQUEST post rqa3_2c"
 alias p3_2c_real="$HOME/Drive/Notes/Concur/technical/curl_commands/receipts/archive/rqa3_real.sh"
 
 # Receipts helpers
+alias rdi="npm run dev:install"
+alias rds="npm run dev:start"
 alias rrt="npm run dev:run-test"
 alias rrhard='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db && npm run dev:start'
 alias rdestroy='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db'
