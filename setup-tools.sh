@@ -21,10 +21,8 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 # NEOVIM
 brew tap neovim/neovim
 brew install --HEAD neovim
-cp .nvimrc ~/.nvimrc
-
-# SYMLINKS
 ln -s /Users/jolson/source/personal/dev-tools/.nvimrc /Users/jolson/.nvimrc
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # DOCKER
 echo ""
