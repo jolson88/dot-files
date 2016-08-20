@@ -11,3 +11,11 @@ cd $HOME/.bootstrapper
 cd ~/source/concur
 git clone git@github.com:concur/receipt-service.git receipt-service
 cd receipt-service
+
+# NPM global packages
+npm i -g bunyan
+npm i -g eslint
+npm i -g eslint-config-airbnb
+npm i -g eslint-plugin-jsx-a11y
+npm i -g eslint-plugin-react
+npm i -g eslint-plugin-import

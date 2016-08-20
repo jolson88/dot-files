@@ -66,7 +66,9 @@ alias p3_2c_real="$HOME/Drive/Notes/Concur/technical/curl_commands/receipts/arch
 # Receipts helpers
 alias rdi="npm run dev:install"
 alias rds="npm run dev:start"
-alias rrt="npm run dev:run-test"
+alias rdrs="npm run dev:restart-and-watch"
+alias rrt="npm run dev:run-test 2> /dev/null"
+alias rrl="npm run lint 2> /dev/null"
 alias rrhard='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db && npm run dev:start'
 alias rdestroy='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db'
 alias dclear='docker rm $(docker ps -a -q) || docker rmi $(docker images | grep "MB" | awk "{print $3}")'

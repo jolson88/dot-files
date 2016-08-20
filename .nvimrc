@@ -6,7 +6,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
 Plugin 'pangloss/vim-javascript'
+Plugin 'townk/vim-autoclose'
 Plugin 'moll/vim-node'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -15,12 +17,14 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 call vundle#end()
+
 filetype plugin indent on
+syntax on
+syntax enable
 
 " Initial config
-syntax on
-set autoindent                         " Copy indent from current line
 set autoread                           " Read open files again when changed outside Vim
 set autowrite                          " Write a modified buffer on each :next , ...
 set backspace=indent,eol,start         " Backspacing over everything in insert mode
@@ -47,18 +51,12 @@ set wildignore=*.swp,*.bak,*.tmp,tmp/**,node_modules/**  " wildmenu: ignore thes
 set wildmenu                           " Command-line completion in an enhanced mode
 set ttimeoutlen=50                     " Fix delay when escaping from insert with Esc
 set noshowmode                         " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set showbreak=↪\
-set synmaxcol=256
-set scrolloff=3
 set clipboard=unnamed
 au BufNewFile,BufRead *.json set ft=javascript
-set pastetoggle=<F3>
-set nofoldenable
 set number
 set rnu
 
 " Color scheme config
-syntax enable
 colorscheme solarized
 let g:solarized_termtrans = 1
 let g:solarized_termcolors=256
@@ -76,6 +74,24 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
 
 " Key mappings
 nnoremap <Esc><Esc> :nohlsearch<CR>
