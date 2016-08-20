@@ -22,7 +22,7 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 brew tap neovim/neovim
 brew install --HEAD neovim
 ln -s /Users/jolson/source/personal/dev-tools/.nvimrc /Users/jolson/.config/nvim/init.vim
-ln -s /Users/jolson/source/personal/dev-tools/ultisnips /Users/jolson/.config/
+ln -s /Users/jolson/source/personal/dev-tools/my-snippets /Users/jolson/.config/nvim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 pip install --user neovim
 git clone https://github.com/powerline/fonts

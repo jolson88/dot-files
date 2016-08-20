@@ -3,7 +3,6 @@ filetype off
 
 " Vundle/Plugins
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/.config/ultisnips
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
@@ -76,6 +75,7 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
 
 " Key mappings
 nnoremap <Esc><Esc> :nohlsearch<CR>
