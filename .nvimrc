@@ -3,6 +3,7 @@ filetype off
 
 " Vundle/Plugins
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.config/ultisnips
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
