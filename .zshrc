@@ -19,6 +19,9 @@ ssh-add ~/.ssh/id_rsa
 
 ## Helper Aliases
 alias tmux="tmux -2"
+function tma() {
+    tmux a -t "$1"
+}
 alias src="source ~/.zshrc"
 alias erc="nvim ~/.zshrc"
 alias ntp="cd ~/source/personal"

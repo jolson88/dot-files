@@ -66,7 +66,7 @@ set background=dark
 
 " Tool config
 set laststatus=2                                    " Make the second to last line of vim our status line
-let g:airline_theme="solarized"
+let g:airline_theme="term"
 let g:airline_powerline_fonts = 1
 let g:javscript_plugin_jsdoc = 1
 let g:ctrlp_working_path_mode = 'ra'

@@ -31,6 +31,7 @@ values."
      syntax-checking
      javascript
      yaml
+     osx
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -263,33 +264,11 @@ you should place your code here."
             ("p" "Personal Todo" entry (file+headline "~/source/personal/notes/personal.org" "Tasks")
              "** TODO %?\n    %i\n    %a")))
     (setq org-refile-targets
-          '((org-agenda-files :maxlevel . 2)))
-    (add-hook 'org-clock-in-hook
-              (lambda ()
-                (interactive)
-                (start-process-shell-command "Make Luxafor red" nil "luxafor.py -c 82")))
-    (add-hook 'org-clock-out-hook
-              (lambda ()
-                (interactive)
-                (start-process-shell-command "Make Luxafor green" nil "luxafor.py -c 71")))
-    (add-hook 'org-clock-cancel-hook
-              (lambda ()
-                (interactive)
-                (start-process-shell-command "Make Luxafor green" nil "luxafor.py -c 71"))))
+          '((org-agenda-files :maxlevel . 2))))
 
-  (with-eval-after-load 'org-pomodoro
-    (add-hook 'org-pomodoro-started-hook
-              (lambda ()
-                (interactive)
-                (start-process-shell-command "Make Luxafor red" nil "luxafor.py -c 82")))
-    (add-hook 'org-pomodoro-finished-hook
-              (lambda ()
-                (interactive)
-                (start-process-shell-command "Make Luxafor green" nil "luxafor.py -c 71")))
-    (add-hook 'org-pomodoro-killed-hook
-              (lambda ()
-                (interactive)
-                (start-process-shell-command "Turn Luxafor off" nil "luxafor.py -c 71"))))
+  (add-hook 'cider-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook 'cider-load-buffer nil 'make-it-local)))
 
   ;; key bindings
   (define-key global-map (kbd "C-+") 'text-scale-increase)
