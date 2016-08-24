@@ -22,6 +22,7 @@ alias tmux="tmux -2"
 function tma() {
     tmux a -t "$1"
 }
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias src="source ~/.zshrc"
 alias erc="nvim ~/.zshrc"
 alias ntp="cd ~/source/personal"
