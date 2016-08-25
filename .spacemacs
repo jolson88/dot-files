@@ -273,6 +273,7 @@ you should place your code here."
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (define-key global-map (kbd "C-SPC") 'helm-multi-files)
+  (define-key global-map (kbd "C-@") 'helm-multi-files)
   (global-set-key [f8] 'neotree-toggle)
   )
 
