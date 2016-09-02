@@ -53,7 +53,7 @@ export RECEIPT_SERVICE_TEST_SAMPLES_PWD=$HOME/source/concur/receipt-service/src/
 
 # Request Tool Get Aliases
 alias gl="$REQUEST get local"
-alias gd5="$REQUEST get dev5"
+alias gd="$REQUEST get dev6"
 alias gqd="$REQUEST get qa_dev"
 alias gqp="$REQUEST get qa_prod"
 alias g3_2c="$REQUEST get rqa3_2c"
@@ -61,7 +61,7 @@ alias g3_2c="$REQUEST get rqa3_2c"
 # Request Tool Post Aliases
 alias pl="$REQUEST post local"
 alias pl_real="$HOME/Drive/Notes/Concur/technical/curl_commands/receipts/archive/local_real.sh"
-alias pd5="$REQUEST post dev5"
+alias pd="$REQUEST post dev6"
 alias pqd="$REQUEST post qa_dev"
 alias pqp="$REQUEST post qa_prod"
 alias p3_2c="$REQUEST post rqa3_2c"

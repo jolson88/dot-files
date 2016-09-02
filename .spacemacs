@@ -32,6 +32,7 @@ values."
      javascript
      yaml
      osx
+     elixir
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -247,6 +248,8 @@ you should place your code here."
   (global-linum-mode)
   (unless (display-graphic-p)
     (setq linum-format (concat linum-format " ")))
+
+  (setq auto-completion-enable-snippets-in-popup t)
 
   (with-eval-after-load 'org
     (setq org-agenda-clockreport-parameter-plist 
