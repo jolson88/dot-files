@@ -18,6 +18,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     markdown
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -252,18 +253,14 @@ you should place your code here."
   (setq auto-completion-enable-snippets-in-popup t)
 
   (with-eval-after-load 'org
-    (setq org-agenda-clockreport-parameter-plist 
-          '(:fileskip0 t :link t :maxlevel 2 :formula "$5=($3+$4)*(60/25);t"))
     (spacemacs/set-leader-keys
       "aog" 'org-capture-goto-last-stored
-      "aor" 'org-refile
-      "aop" 'org-pomodoro
-      "aoM" 'org-agenda-month-view)
-    (setq org-clock-idle-time 10)
+      "aor" 'org-refile)
+    (setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))
+    (setq org-agenda-files '("~/source/personal/notes/work.org"))
+    (setq org-agenda-include-diary t)
     (setq org-capture-templates
-          '(("w" "Work Todo" entry (file+headline "~/source/personal/notes/work.org" "Tasks")
-             "** TODO %?\n    %i\n    %a")
-            ("p" "Personal Todo" entry (file+headline "~/source/personal/notes/personal.org" "Tasks")
+          '(("w" "Work Todo" entry (file+headline "~/source/personal/notes/work.org" "Inbox")
              "** TODO %?\n    %i\n    %a")))
     (setq org-refile-targets
           '((org-agenda-files :maxlevel . 2))))
@@ -287,9 +284,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
+ '(package-selected-packages
    (quote
-    ("~/source/personal/notes/work.org" "~/source/personal/notes/work.org_archive"))))
+    (mmm-mode markdown-toc markdown-mode gh-md yaml-mode ws-butler window-numbering which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters popwin persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro alert log4e gntp org-plus-contrib org-download org-bullets open-junk-file ob-elixir org neotree move-text magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd linum-relative link-hint launchctl json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flycheck-pos-tip pos-tip flycheck-mix flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree elisp-slime-nav editorconfig dumb-jump f diminish company-tern dash-functional tern company-statistics column-enforce-mode coffee-mode clojure-snippets clj-refactor hydra inflections edn multiple-cursors paredit s peg clean-aindent-mode cider-eval-sexp-fu eval-sexp-fu highlight cider seq spinner queue clojure-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed alchemist company dash elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,4 +1,7 @@
 source ~/.antigen/antigen.zsh
+source ~/source/concur/aws-tooling/scripts/awstools.sh
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+
 antigen use oh-my-zsh
 
 ## Antigen Bundles
@@ -14,13 +17,13 @@ antigen theme bira
 ## We're done!
 antigen apply
 
-eval `ssh-agent -s`
-ssh-add ~/.ssh/id_rsa
-
 ## Helper Aliases
 alias tmux="tmux -2"
 function tma() {
     tmux a -t "$1"
+}
+function erlact() {
+    . ~/erlang/$1/activate
 }
 alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias src="source ~/.zshrc"
@@ -48,8 +51,8 @@ function gri() {
 }
 
 ## Alias
-REQUEST=$HOME/source/concur/receipt-service/src/tools/request.sh
-export RECEIPT_SERVICE_TEST_SAMPLES_PWD=$HOME/source/concur/receipt-service/src/test/samples/post-requests
+REQUEST=$HOME/source/concur/receipt-service/code/src/tools/request.sh
+export RECEIPT_SERVICE_TEST_SAMPLES_PWD=$HOME/source/concur/receipt-service/code/src/test/samples/post-requests
 
 # Request Tool Get Aliases
 alias gl="$REQUEST get local"
@@ -75,10 +78,10 @@ alias rrt="npm run dev:run-test 2> /dev/null"
 alias rrl="npm run lint 2> /dev/null"
 alias rrhard='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db && npm run dev:start'
 alias rdestroy='docker-compose kill -s SIGKILL && docker-compose rm -f --all && docker rmi -f $(docker images -q receiptservice_api) && sudo rm -rf $HOME/data/db'
-alias dclear='docker rm $(docker ps -a -q) || docker rmi $(docker images | grep "MB" | awk "{print $3}")'
+alias dclear='docker rm $(docker ps -a -q) || docker rmi $(docker images | grep "MB\|GB" | awk "{print $3}")'
 
 ## Path
-export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.bin:$HOME/.kerl:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
