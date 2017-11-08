@@ -1,6 +1,4 @@
-source ~/.antigen/antigen.zsh
-test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
-
+source ~/Source/lib/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 ## Antigen Bundles
@@ -8,6 +6,7 @@ antigen bundle git
 antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
+antigen bundle kennethreitz/autoenv
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 ## Antigen Theme
@@ -16,13 +15,30 @@ antigen theme bira
 ## We're done!
 antigen apply
 
-## Path
-export PATH="$HOME/.bin:$HOME/.kerl:$PATH"
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+export PATH=$PATH:$HOME/.bin:$HOME/Library/Python/2.7/bin
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export GOPATH=$(go env GOPATH)
+export PATH="$PATH:$(go env GOPATH)/bin"
+
+## Work helpers
+alias ssh-sea='ssh -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
+alias scp-sea='scp -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
+alias ssh-copy-id-sea='ssh-copy-id -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/jolson88/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/jolson88/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/jolson88/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/jolson88/google-cloud-sdk/completion.zsh.inc'; fi
 
 export NVM_DIR="$HOME/.nvm"
-source $(brew --prefix nvm)/nvm.sh
+. "/usr/local/opt/nvm/nvm.sh"
 
-eval "$(rbenv init - --no-rehash)"
+alias ssh-sea='ssh -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
+alias ssh-copy-id-sea='ssh-copy-id -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
+alias scp-sea='scp -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
 
-export GOPATH="$HOME/Go"
+[ -f /usr/local/opt/dvm/dvm.sh ] && . /usr/local/opt/dvm/dvm.sh
