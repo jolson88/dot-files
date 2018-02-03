@@ -23,11 +23,6 @@ export PATH="/usr/local/opt/openssl/bin:$PATH"
 export GOPATH=$(go env GOPATH)
 export PATH="$PATH:$(go env GOPATH)/bin"
 
-## Work helpers
-alias ssh-sea='ssh -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
-alias scp-sea='scp -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
-alias ssh-copy-id-sea='ssh-copy-id -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/jolson88/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/jolson88/google-cloud-sdk/path.zsh.inc'; fi
 
@@ -42,3 +37,16 @@ alias ssh-copy-id-sea='ssh-copy-id -o ProxyCommand="ssh -W %h:%p -q jolson@seaba
 alias scp-sea='scp -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
 
 [ -f /usr/local/opt/dvm/dvm.sh ] && . /usr/local/opt/dvm/dvm.sh
+
+export PATH="$HOME/.bin:$PATH"
+
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+source $(brew --prefix nvm)/nvm.sh
+
+eval "$(rbenv init - --no-rehash)"
+
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
+export GOPATH="$HOME/Go"
+
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
