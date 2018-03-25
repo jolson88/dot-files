@@ -26,6 +26,7 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      clojure
+     common-lisp
      elixir
      erlang
      emacs-lisp
