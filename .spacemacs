@@ -18,7 +18,9 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     markdown
      elixir
+     elm
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -26,7 +28,6 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      clojure
-     common-lisp
      elixir
      erlang
      emacs-lisp
@@ -34,6 +35,7 @@ values."
      syntax-checking
      javascript
      yaml
+     shell
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -205,7 +207,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -239,6 +241,15 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq
+   powerline-default-separator 'utf-8
+   dotspacemacs-whitespace-cleanup 'trailing
+   dotspacemacs-line-numbers t
+   dotspacemacs-default-font '("Source Code Pro"
+                              :size 15
+                              :weight normal
+                              :width normal
+                              :powerline-scale 1.1))
   )
 
 (defun dotspacemacs/user-config ()
@@ -248,14 +259,38 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq powerline-default-separator 'utf-8)
-  (global-linum-mode)
-
   ;; key bindings
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (define-key global-map (kbd "C-SPC") 'helm-multi-files)
   (global-set-key [f8] 'neotree-toggle)
+
+  ;; Line number spacing
+  (require 'hl-line)
+  (defface my-linum-hl
+    `((t :inherit linum :background ,(face-background 'hl-line nil t)))
+    "Face for the current line number."
+    :group 'linum)
+  (add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
+  (defun my-linum-get-format-string ()
+    (let* ((width (1+ (length (number-to-string
+                               (count-lines (point-min) (point-max))))))
+           (format (concat "%" (number-to-string width) "d \u2502")))
+      (setq my-linum-format-string format)))
+  (defvar my-linum-current-line-number 0)
+
+  (setq linum-format 'my-linum-format)
+
+  (defun my-linum-format (line-number)
+    (propertize (format my-linum-format-string line-number) 'face
+                (if (eq line-number my-linum-current-line-number)
+                    'my-linum-hl
+                  'linum)))
+  (defadvice linum-update (around my-linum-update)
+    (let ((my-linum-current-line-number (line-number-at-pos)))
+      ad-do-it))
+  (ad-activate 'linum-update)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -267,7 +302,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (erlang ob-elixir flycheck-mix flycheck-credo alchemist elixir-mode ghub yaml-mode ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-download org-bullets open-junk-file neotree move-text magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd linum-relative link-hint json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link fuzzy flycheck-pos-tip pos-tip flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree elisp-slime-nav dumb-jump f diminish define-word company-tern dash-functional tern company-statistics company column-enforce-mode coffee-mode clojure-snippets clj-refactor hydra inflections edn multiple-cursors paredit s peg clean-aindent-mode cider-eval-sexp-fu eval-sexp-fu highlight cider spinner queue pkg-info clojure-mode epl bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup solarized-theme dash)))
+    (flycheck-elm elm-mode mmm-mode markdown-toc markdown-mode gh-md xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help erlang ob-elixir flycheck-mix flycheck-credo alchemist elixir-mode ghub yaml-mode ws-butler winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-download org-bullets open-junk-file neotree move-text magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd linum-relative link-hint json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link fuzzy flycheck-pos-tip pos-tip flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree elisp-slime-nav dumb-jump f diminish define-word company-tern dash-functional tern company-statistics company column-enforce-mode coffee-mode clojure-snippets clj-refactor hydra inflections edn multiple-cursors paredit s peg clean-aindent-mode cider-eval-sexp-fu eval-sexp-fu highlight cider spinner queue pkg-info clojure-mode epl bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup solarized-theme dash)))
  '(tramp-syntax (quote default) nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
