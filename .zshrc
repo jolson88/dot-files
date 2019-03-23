@@ -32,10 +32,6 @@ if [ -f '/Users/jolson88/google-cloud-sdk/completion.zsh.inc' ]; then source '/U
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
-alias ssh-sea='ssh -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
-alias ssh-copy-id-sea='ssh-copy-id -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
-alias scp-sea='scp -o ProxyCommand="ssh -W %h:%p -q jolson@seabast00.concurasp.com"'
-
 [ -f /usr/local/opt/dvm/dvm.sh ] && . /usr/local/opt/dvm/dvm.sh
 
 export PATH="$HOME/.bin:$PATH"
