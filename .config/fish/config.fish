@@ -11,6 +11,8 @@ abbr -a m make
 
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin
 
+eval (ssh-agent -c)
+
 function d
 	while test $PWD != "/"
 		if test -d .git
