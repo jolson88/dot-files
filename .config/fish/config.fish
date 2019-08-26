@@ -11,7 +11,26 @@ abbr -a gri 'git rebase -i'
 abbr -a m make
 
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin
-eval (ssh-agent -c)
+
+# Helper functions
+function __ssh_agent_start -d "start a new ssh agent"
+  ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV
+  chmod 600 $SSH_ENV
+  source $SSH_ENV > /dev/null
+end
+
+function __ssh_agent_is_started -d "check if ssh agent is already started"
+  	if begin; test -f $SSH_ENV; and test -z "$SSH_AGENT_PID"; end
+		source $SSH_ENV > /dev/null
+	end
+
+	if test -z "$SSH_AGENT_PID"
+		return 1
+	end
+
+	ps -ef | grep $SSH_AGENT_PID | grep -v grep | grep -q ssh-agent
+	return $status
+end
 
 function d
 	while test $PWD != "/"
@@ -20,6 +39,15 @@ function d
 		end
 		cd ..
 	end
+end
+
+# Start SSH
+if test -z "$SSH_ENV"
+    set -xg SSH_ENV $HOME/.ssh/environment
+end
+
+if not __ssh_agent_is_started
+    __ssh_agent_start
 end
 
 # Fish git prompt
@@ -45,7 +73,7 @@ setenv LD_LIBRARY_PATH (rustc +nightly --print sysroot)"/lib:$LD_LIBRARY_PATH"
 setenv RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
 
 function fish_prompt
-	set_color brblack
+    set_color green
 	echo -n "["(date "+%H:%M")"] "
 	set_color blue
 	echo -n $USER@(hostname)

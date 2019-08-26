@@ -11,7 +11,7 @@
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:Meslo LG S 10
+font xft:DejaVu Sans Mono 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -35,7 +35,7 @@ set $right l
 floating_modifier Mod4
 
 # start a terminal
-bindsym Mod4+Return exec i3-sensible-terminal
+bindsym Mod4+Return exec urxvt
 
 # kill focused window
 bindsym Mod4+Shift+q kill
@@ -169,7 +169,6 @@ bar {
 new_window pixel 1
 
 # Pulse Audio controls
-exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
