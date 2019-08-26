@@ -1,0 +1,30 @@
+out_to_x no
+own_window no
+out_to_console yes
+background no
+max_text_width 0
+use_spacer left
+
+# Update interval (in seconds)
+update_interval 2.0
+
+# Run forever
+total_run_times 0
+
+# Shorten units (kiB->k, GiB->G, etc.)
+short_units yes
+
+# Misc. settings
+if_up_strictness address
+override_utf8_locale no
+cpu_avg_samples 2
+
+TEXT
+[
+{ "full_text": "${cpu}% (${freq}mhz)", "color": "\#b58900" },
+{ "full_text": "${mem} / ${memmax} (${memperc}%)", "color": "\#d33682" },
+{ "full_text": "${diskio}", "color": "\#6c71c4" },
+{ "full_text": "${hwmon 3 fan 1}", "color": "\#cb4b16" },
+{ "full_text": "${battery_percent}: ${battery_time}", "color": "\#2aa198" },
+{ "full_text": "${time %Y-%m-%d %H:%M}", "color": "\#839496" }
+],
