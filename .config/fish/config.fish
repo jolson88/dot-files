@@ -2,6 +2,7 @@ abbr -a e nvim
 abbr -a g git
 abbr -a gs 'git status'
 abbr -a ga 'git add'
+abbr -a gaa 'git add .'
 abbr -a gc 'git commit'
 abbr -a gco 'git checkout'
 abbr -a gp 'git push'
@@ -10,7 +11,6 @@ abbr -a gri 'git rebase -i'
 abbr -a m make
 
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin
-
 eval (ssh-agent -c)
 
 function d
