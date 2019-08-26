@@ -4,8 +4,8 @@ Xft.antialias:	true
 Xft.rgba:	rgb
 
 ! Urxvt settings ----------------------
-URxvt*font: xft:DejaVu Sans Mono:size=10:antialias=true
-URxvt*boldFont: xft:DejaVu Sans Mono:size=10:style=bold:antialias=true
+URxvt*font: xft:DejaVu Sans Mono:size=11:antialias=true
+URxvt*boldFont: xft:DejaVu Sans Mono:size=11:style=bold:antialias=true
 URxvt*lineSpace: 0
 URxvt*scrollBar: false
 URxvt*secondaryScroll: true
