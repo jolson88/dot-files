@@ -17,19 +17,17 @@ Plugin 'justinmk/vim-sneak'
 
 " GUI enhancements
 Plugin 'itchyny/lightline.vim'
-Plugin 'w0rp/ale'
 Plugin 'machakann/vim-highlightedyank'
 Plugin 'andymass/vim-matchup'
 
 " Fuzzy finder
 Plugin 'airblade/vim-rooter'
 Plugin 'ctrlpvim/ctrlp.vim'
-" Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plugin 'junegunn/fzf.vim'
 
 " Semantic language support
 "Plug 'phildawes/racer'
 "Plug 'racer-rust/vim-racer'
+Plugin 'rust-lang/rust.vim'
 Plugin 'ncm2/ncm2'
 Plugin 'roxma/nvim-yarp'
 
@@ -42,7 +40,6 @@ Plugin 'ncm2/ncm2-racer'
 " Syntactic language support
 Plugin 'cespare/vim-toml'
 Plugin 'stephpy/vim-yaml'
-Plugin 'rust-lang/rust.vim'
 Plugin 'dag/vim-fish'
 Plugin 'plasticboy/vim-markdown'
 call vundle#end()
@@ -52,20 +49,6 @@ filetype plugin indent on
 syntax enable
 set background=dark
 colorscheme solarized
-
-" Plugin settings
-let g:secure_modelines_allowed_items = [
-                \ "textwidth",   "tw",
-                \ "softtabstop", "sts",
-                \ "tabstop",     "ts",
-                \ "shiftwidth",  "sw",
-                \ "expandtab",   "et",   "noexpandtab", "noet",
-                \ "filetype",    "ft",
-                \ "foldmethod",  "fdm",
-                \ "readonly",    "ro",   "noreadonly", "noro",
-                \ "rightleft",   "rl",   "norightleft", "norl",
-                \ "colorcolumn"
-                \ ]
 
 " Lightline
 " let g:lightline = { 'colorscheme': 'wombat' }
@@ -78,46 +61,13 @@ function! LightlineFilename()
   return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
 
-" Linter
-" only lint on save
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_save = 0
-let g:ale_lint_on_enter = 0
-let g:ale_virtualtext_cursor = 1
-let g:ale_rust_rls_config = {
-	\ 'rust': {
-		\ 'all_targets': 1,
-		\ 'build_on_save': 1,
-		\ 'clippy_preference': 'on'
-	\ }
-	\ }
-let g:ale_rust_rls_toolchain = ''
-let g:ale_linters = {'rust': ['rls']}
-highlight link ALEWarningSign Todo
-highlight link ALEErrorSign WarningMsg
-highlight link ALEVirtualTextWarning Todo
-highlight link ALEVirtualTextInfo Todo
-highlight link ALEVirtualTextError WarningMsg
-highlight ALEError guibg=None
-highlight ALEWarning guibg=None
-let g:ale_sign_error = "✖"
-let g:ale_sign_warning = "⚠"
-let g:ale_sign_info = "i"
-let g:ale_sign_hint = "➤"
-
-nnoremap <silent> K :ALEHover<CR>
-nnoremap <silent> gd :ALEGoToDefinition<CR>
-
-" racer + rust
+" Rust
 " https://github.com/rust-lang/rust.vim/issues/192
 let g:rustfmt_command = "rustfmt +nightly"
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'xclip -selection clipboard'
-"let g:racer_cmd = "/usr/bin/racer"
-"let g:racer_experimental_completer = 1
 let $RUST_SRC_PATH = systemlist("rustc --print sysroot")[0] . "/lib/rustlib/src/rust/src"
 
 " Completion
@@ -127,9 +77,6 @@ set completeopt=noinsert,menuone,noselect
 " and don't hijack my enter key
 inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
 inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")
-
-" Settings
-syntax on
 
 " Permanent undo
 set undodir=~/.vimdid
@@ -196,23 +143,13 @@ set mouse=a                             " Enable mouse usage (all modes) in term
 set shortmess+=c                        " don't give |ins-completion-menu| messages.
 set completeopt=noinsert,menuone,noselect
 
-" Search results centered please
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-
 " Hotkeys
-inoremap <C-c><C-c> <C-o>:wq<CR>        " Primarily used with git commit to quickly exit
-map <Leader>rs :so $MYVIMRC<CR>         " Re-source the .nvimrc file being worked on
-map <Leader>s :w<CR>                    
-map <Leader>x :q<CR>
-map <Leader>o :CtrlP<CR>                " Open file menu
-map <Leader>b :CtrlPBuffer<CR>          " Open buffer menu
-map <Leader>f :CtrlPMRUFiles<CR>        " Open most-recently used files
-map <Leader>gs :Gstatus<CR>
-map <Leader>gc :Gcommit<CR>
+nnoremap <leader>rs :so $MYVIMRC<CR>         " Re-source the .nvimrc file being worked on
+nnoremap <leader>w :w<CR>                    
+nnoremap <leader>x :q<CR>
+nnoremap <leader>o :CtrlP<CR>                " Open file menu
+nnoremap <leader>b :CtrlPBuffer<CR>          " Open buffer menu
+nnoremap <leader>f :CtrlPMRUFiles<CR>        " Open most-recently used files
 
 " ; as :
 nnoremap ; :
