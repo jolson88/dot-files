@@ -78,6 +78,10 @@ set completeopt=noinsert,menuone,noselect
 inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
 inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")
 
+" File/Buffer Open
+" ignore .gitignore files
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
 " Permanent undo
 set undodir=~/.vimdid
 set undofile
