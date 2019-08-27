@@ -8,6 +8,8 @@ abbr -a gco 'git checkout'
 abbr -a gp 'git push'
 abbr -a gr 'git rebase'
 abbr -a gri 'git rebase -i'
+abbr -a cb 'cargo build'
+abbr -a cr 'cargo run'
 abbr -a m make
 
 set -U fish_user_paths /usr/local/sbin /usr/local/bin /usr/bin /bin
@@ -20,6 +22,30 @@ function d
 		end
 		cd ..
 	end
+end
+
+function bind_bang
+    switch (commandline -t)[-1]
+        case "!"
+            commandline -t $history[1]; commandline -f repaint
+        case "*"
+            commandline -i !
+    end
+end
+
+function bind_dollar
+    switch (commandline -t)[-1]
+        case "!"
+            commandline -t ""
+            commandline -f history-token-search-backward
+        case "*"
+            commandline -i '$'
+    end
+end
+
+function fish_user_key_bindings
+    bind ! bind_bang
+    bind '$' bind_dollar
 end
 
 # Fish git prompt
