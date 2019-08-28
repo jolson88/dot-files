@@ -28,6 +28,7 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 # Import a private GPG key: `gpg --allow-secret-key-import --import private.key
 # Use `gpg --list-keys` to find GPG key
 # `git config --global user.signingkey FOO` to sign
+# `git config --global commit.gpgsign true` to sign everything
 
 ############################
 # Install dev tools
