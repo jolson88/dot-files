@@ -12,6 +12,11 @@ sudo apt install keyring
 sudo apt install git
 sudo apt install build-essential
 sudo apt install tmux
+sudo apt install autoconf
+sudo apt install m4
+sudo apt install libncurses5-dev libncursesw5-dev
+sudo apt install libssl-dev
+sudo apt install libwxgtk3.0-dev
 
 ####################
 # Shells/Terminals
