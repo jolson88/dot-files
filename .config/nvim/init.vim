@@ -77,6 +77,7 @@ set listchars+=trail:.                 " Trailing white spaces will be displayed
 set mouse=a                            " Enable mouse usage (all modes) in terminals
 set nobackup                           " Don't constantly write backup files
 set noerrorbells                       " Don't beep
+set nofoldenable
 set noswapfile                         " Ain't nobody got time for swap files
 set nowrap                             " Do not wrap lines
 set number                             " Also show current absolute line
@@ -106,8 +107,9 @@ noremap <leader>c :w !xsel -ib<cr><cr>
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>  "Create new file next to current open one
 nnoremap <leader>f :NERDTreeFind<CR>
-nnoremap <leader>g :GitGutterToggle<CR>
-noremap <leader>p :read !xsel --clipboard --output<cr>
+nnoremap <leader>g :G<CR>
+nnoremap <leader>G :GitGutterToggle<CR>
+nnoremap <leader>p :Gpush<CR>
 nnoremap <leader>t :CtrlP<CR>
 nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
 nnoremap <leader>u :CtrlPMRUFiles<CR>                   " Open most-recently used files
