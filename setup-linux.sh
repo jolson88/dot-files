@@ -21,7 +21,7 @@ sudo apt install libwxgtk3.0-dev
 ####################
 # Shells/Terminals
 ####################
-sudo apt install rxvt-unicode xsel
+sudo apt install xsel
 sudo apt install fish
 sudo chsh -s /usr/bin/fish
 sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
