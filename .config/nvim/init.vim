@@ -33,10 +33,17 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 
 " Languages
+Plug 'Shougo/deoplete.nvim'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'autozimu/LanguageClient-neovim'
 Plug 'junegunn/fzf'                            " Optional add-on for LanguageClient-neovim
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-racer'
 
 " Syntactic language support
 Plug 'cespare/vim-toml'
@@ -63,6 +70,7 @@ set autowrite                          " Write a modified buffer on each :next ,
 set backspace=indent,eol,start         " Backspacing over everything in insert mode
 set clipboard=unnamed
 set colorcolumn=100                    " and give me a colored column
+set completeopt=noinsert,menuone,noselect " IMPORTANT: :help Ncm2PopupOpen for more information
 set expandtab                          " Make vim use spaces and not tabs
 set formatoptions=tc                   " wrap text and comments using textwidth
 set formatoptions+=r                   " continue comments when pressing ENTER in I mode
@@ -127,6 +135,7 @@ autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.md set spell
 autocmd BufRead *.orig set readonly                     " Prevent accidental writes to buffers that shouldn't be edited
+autocmd BufEnter * call ncm2#enable_for_buffer()        " Enable ncm2 for all buffers
 
 " Jump to last edit position on opening file
 if has("autocmd")
@@ -137,6 +146,9 @@ endif
 " *********************
 " Plugin settings
 " *********************
+" ncm2
+let g:deoplete#enable_at_startup = 1
+
 " LanguageClient
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
@@ -153,6 +165,7 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'xclip -selection clipboard'
+let g:racer_cmd = "/home/jolson88/.cargo/bin/racer"
 let $RUST_SRC_PATH = systemlist("rustc --print sysroot")[0] . "/lib/rustlib/src/rust/src"
 
 " CtrlP

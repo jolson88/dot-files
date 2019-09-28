@@ -39,6 +39,13 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 # Install dev tools
 ############################
 
+# Ruby (Blogging/Jekyll)
+sudo apt install ruby ruby-dev
+
+# Python (various scripting)
+sudo apt install pip3
+pip3 install --user pynvim
+
 # Rust
 curl https://sh.rustup.rs -sSf | sh
 source $HOME/.cargo/env
