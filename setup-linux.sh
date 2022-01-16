@@ -5,6 +5,9 @@
 # sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/JackHack96/dell-xps-9570-ubuntu-respin/master/xps-tweaks.sh)"
 # Import id_rsa and id_rsa.pub
 
+# If on Chromebook, remap search key to control key
+# xmodmap search.xmodmap
+
 #######################
 # Install core tools
 #######################
