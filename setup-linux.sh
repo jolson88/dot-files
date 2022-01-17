@@ -8,6 +8,13 @@
 # If on Chromebook, remap search key to control key
 # xmodmap search.xmodmap
 
+sudo apt update
+sudo apt install software-properties-common
+sudo apt update
+sudo add-apt-repository ppa:jonathonf/vim
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+
 #######################
 # Install core tools
 #######################
@@ -20,6 +27,12 @@ sudo apt install m4
 sudo apt install libncurses5-dev libncursesw5-dev
 sudo apt install libssl-dev
 sudo apt install libwxgtk3.0-dev
+sudo apt install vim
+sudo apt install llvm_defaults
+sudo apt install python3.9
+sudo apt install python3.9-dev
+sudo apt install snapd
+sudo apt install keychain
 
 ####################
 # Shells/Terminals
@@ -27,7 +40,6 @@ sudo apt install libwxgtk3.0-dev
 sudo apt install xsel
 sudo apt install fish
 sudo chsh -s /usr/bin/fish
-sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 
 ##################################
 # Set permissions and import keys
@@ -45,6 +57,7 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 # Python (various scripting)
 sudo apt install pip3
 pip3 install --user pynvim
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
 
 # Rust
 curl https://sh.rustup.rs -sSf | sh
@@ -57,5 +70,9 @@ rustup component add rls rust-analysis rust-src
 # Manual steps
 ###################
 echo "Don't forget to import ssh keys and GPG keys"
-# chmod 400 ~/.ssh/id_rsa
+echo "Also, don't forget to setup Vundle and YCM for vim"
+# https://dane-bulat.medium.com/vim-setting-up-a-build-system-and-code-completion-for-c-and-c-eb263c0a19a1
+# chmod 400 ~/.ssh/idrsa
 echo "Now install config files from dot-files and reboot"
+echo "Run 'sudo snap install cmake --classic after reboot'"
+
