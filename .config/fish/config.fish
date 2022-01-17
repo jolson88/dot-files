@@ -1,3 +1,4 @@
+abbr -a cmb 'cmake --build .'
 abbr -a e nvim
 abbr -a g git
 abbr -a gs 'git status'
