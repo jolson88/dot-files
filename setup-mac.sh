@@ -2,8 +2,7 @@
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 mkdir -p ~/.antigen/
-curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > ~/.antigen/antigen.zsh
-ln -s /Users/jolson/source/personal/dev-tools/.zshrc /Users/jolson/.zshrc
+curl -L git.io/antigen > ~/.antigen/antigen.zsh
 
 # iTERM2
 brew cask install iterm2
